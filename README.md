@@ -1,4 +1,4 @@
-# 📊 BigQuery Homework Project – High School BKK
+# 📊 BigQuery Homework Project
 
 This project demonstrates how to design, implement, and benchmark aggregation queries on large datasets using both native BigQuery tables and Google Sheets as external data sources.
 
@@ -12,7 +12,7 @@ bigquery-homework/
 ├── all_query_timings.csv                     # Benchmark results from CLI
 ├── benchmark_all_bigquery_and_sheets.sh      # Script to run and time all queries
 ├── requirements.txt                          # Python dependencies (optional)
-├── scripts/                                  # Placeholder for future Python scripts
+├── scripts/                                  # Python script to generate data for Google Sheets
 └── sql/                                      # All SQL scripts for table/view creation
     ├── 01_create_large_dataset.sql
     ├── 02_create_group_mean_view.sql
