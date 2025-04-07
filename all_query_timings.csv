@@ -1,0 +1,10 @@
+BQ View (true),0m7.914s
+BQ View (false),0m6.183s
+BQ Materialized View (true),0m6.282s
+BQ Materialized View (false),0m6.118s
+BQ Scheduled Table (true),0m5.921s
+BQ Scheduled Table (false),0m5.934s
+Sheets View (true),0m5.950s
+Sheets View (false),0m6.049s
+Sheets Scheduled Table (true),0m5.940s
+Sheets Scheduled Table (false),0m6.029s

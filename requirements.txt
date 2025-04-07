@@ -1,0 +1,6 @@
+pandas
+google-cloud-bigquery
+gspread
+oauth2client
+google-auth
+
