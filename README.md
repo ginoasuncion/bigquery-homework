@@ -1,61 +1,91 @@
-# BigQuery Homework Project – High School Bangkok
+# 📊 BigQuery Homework Project – High School BKK
 
-This project demonstrates the creation and benchmarking of data aggregation in BigQuery using both native tables and Google Sheets as external sources.
+This project demonstrates how to design, implement, and benchmark aggregation queries on large datasets using both native BigQuery tables and Google Sheets as external data sources.
+
+---
 
 ## 📁 Project Structure
 
 ```
 bigquery-homework/
-├── 01_create_large_dataset.sql
-├── 02_create_group_mean_view.sql
-├── 03_create_materialized_view.sql
-├── 04_create_scheduled_query_table.sql
-├── 05_create_google_sheet_view.sql
-├── 06_create_google_sheet_scheduled_query.sql
-└── README.md
+├── README.md
+├── all_query_timings.csv                     # Benchmark results from CLI
+├── benchmark_all_bigquery_and_sheets.sh      # Script to run and time all queries
+├── requirements.txt                          # Python dependencies (optional)
+├── scripts/                                  # Placeholder for future Python scripts
+└── sql/                                      # All SQL scripts for table/view creation
+    ├── 01_create_large_dataset.sql
+    ├── 02_create_group_mean_view.sql
+    ├── 03_create_materialized_view.sql
+    ├── 04_create_scheduled_query_table.sql
+    ├── 05_create_google_sheet_view.sql
+    └── 06_create_google_sheet_scheduled_query.sql
 ```
 
-## 🧠 Objective
+---
 
-- Create a large dataset with 1,000,000 rows and 1,000 distinct groups.
-- Generate a random numeric column.
-- Create views, materialized views, and scheduled queries to compute group-level averages.
-- Benchmark the performance of each method.
-- Include a Google Sheet with the same structure and compare performance when accessed via BigQuery.
+## 🎯 Project Goals
 
-## ✅ SQL Scripts
+- Generate a synthetic dataset with 1,000,000 rows and 1,000 groups.
+- Create and compare the performance of:
+  - Standard Views
+  - Materialized Views (native BigQuery only)
+  - Scheduled Queries
+- Integrate Google Sheets as an external table
+- Benchmark performance between BigQuery-native data and Sheets-linked data
 
-| File Name                              | Description                                         |
-|----------------------------------------|-----------------------------------------------------|
-| 01_create_large_dataset.sql            | Generate base dataset with UUIDs, group IDs, values |
-| 02_create_group_mean_view.sql          | Create a standard view                              |
-| 03_create_materialized_view.sql        | Create a materialized view                          |
-| 04_create_scheduled_query_table.sql    | Create scheduled query output table (native)        |
-| 05_create_google_sheet_view.sql        | Create a view using Google Sheets as external data  |
-| 06_create_google_sheet_scheduled_query.sql | Scheduled query table from Google Sheets         |
+---
 
-## 📊 Performance Benchmark
+## ✅ SQL Components
 
-Performed using `bq query` with `time` in CLI. Each method was run:
-- Once with cached results
-- Once with `--nouse_cache` to simulate fresh queries
+| Script                                | Description                                           |
+|--------------------------------------|-------------------------------------------------------|
+| `01_create_large_dataset.sql`        | Generate the synthetic dataset inside BigQuery       |
+| `02_create_group_mean_view.sql`      | Create a standard view for group-mean aggregation     |
+| `03_create_materialized_view.sql`    | Create a materialized view (BigQuery only)           |
+| `04_create_scheduled_query_table.sql`| Create a scheduled output table                      |
+| `05_create_google_sheet_view.sql`    | Create a view based on Google Sheets external table  |
+| `06_create_google_sheet_scheduled_query.sql` | Scheduled output table from Sheet data     |
 
-Results were stored and compared to analyze speed differences.
+---
 
-## 📎 Notes
+## 🚀 How to Run
 
-- Materialized Views are only supported on native BigQuery tables.
-- Google Sheets cannot be used to create Materialized Views.
-- For best performance and stability, use scheduled query tables.
+1. Open the `sql/` folder and run SQL scripts in order.
+2. Ensure Google Sheet is properly linked as an external table.
+3. Run `benchmark_all_bigquery_and_sheets.sh` to compare performance.
+4. Results are saved to `all_query_timings.csv`.
 
-## 🔧 Requirements
+---
 
-- Google Cloud project with BigQuery and Sheets access
-- Google Sheet shared with BigQuery's service account
-- CLI access with `bq` and `gcloud` authenticated
+## 📊 Benchmark Sample (from CLI output)
 
-## 🏁 How to Use
+| Method                     | Time     |
+|----------------------------|----------|
+| BQ View (cached)           | 7.914s   |
+| BQ View (uncached)         | 6.183s   |
+| Materialized View (cached) | 6.282s   |
+| Materialized View (uncached)| 6.118s  |
+| Scheduled Table (cached)   | 5.921s   |
+| Scheduled Table (uncached) | 5.934s   |
+| Sheets View (cached)       | 5.950s   |
+| Sheets View (uncached)     | 6.049s   |
+| Sheets Scheduled (cached)  | 5.940s   |
+| Sheets Scheduled (uncached)| 6.029s   |
 
-1. Download and run the SQL files in order.
-2. Ensure your dataset is created and external table is linked.
-3. Use the CLI or UI to run benchmark comparisons.
+---
+
+## 🔧 Prerequisites
+
+- Google Cloud project with BigQuery and Drive access
+- External table created from Google Sheets
+- `bq` CLI installed and authenticated
+- Google Sheet shared with the correct BigQuery service account
+
+---
+
+## 🏁 Conclusion
+
+This project demonstrates how performance varies based on storage type and query method in BigQuery. For optimal performance and reliability, materialized or scheduled tables are preferred over dynamic views—especially when working with external data like Google Sheets.
+
+---
